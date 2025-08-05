@@ -1,19 +1,31 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import session from 'express-session';
+import dotenv from 'dotenv'
+import express from 'express'
 import userRoutes from './routes/userRoute.js'
+import expressSession from 'express-session'
 
-dotenv.config();
+dotenv.config()
 
-const app = express();
-const port = process.env.PORT || 5003;
+const PORT = process.env.PORT || 3000
 
+const app = express()
 
+app.set("view engine", "twig") 
 
 app.use(express.json());
 
-app.use('/api/user', userRoutes);
+app.use(expressSession({
+    secret:  process.env.EXPRESS_SESSION_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        maxAge: 4000 * 60 * 60
+    }
+}))
 
-app.listen(port, () => {
-    console.log(`Serveur lancé sur http://localhost:${port}`);
-});
+app.use('/api/user', userRoutes)
+
+
+app.listen(PORT, () => {
+    console.log(`Application lancée sur le port: ${PORT}`)
+})
