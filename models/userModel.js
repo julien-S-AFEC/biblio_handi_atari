@@ -1,7 +1,30 @@
-import pool from '../config/db.js';
+import pool from "../config/db.js"; 
 import bcrypt from 'bcrypt'
 
-// Récupérer les utilisateurs par rapport a leurs email
+export const User = {
+  create: async (user) => {
+    const sql = 'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)';
+    const [result] = await pool.execute(sql, [user.name, user.email, user.password, user.role || 'user']);
+    return result;
+  },
+
+
+  findByEmail: async (email) => {
+    const [rows] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
+    return rows;
+  },
+
+  verifyEmail: async (email) => {
+  const sql = 'UPDATE users SET is_verified = true WHERE email = ?';
+  const [result] = await pool.execute(sql, [email]);
+  return result;
+}
+  
+}
+
+
+
+// Récupérer les utilisateurs par rapport à leur email
 export async function findUserByEmail(email) {
     const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
     return rows[0];
@@ -9,9 +32,9 @@ export async function findUserByEmail(email) {
 
 export const userLogin = async (email, password) => {
     try {
-        const con = await pool.getConnection()
+        const connexion = await pool.getConnection()
 
-        const [user, fields] = await con.execute(`
+        const [user, fields] = await connexion.execute(`
         SELECT id, name, email, password, role  
         FROM users 
         WHERE email=? 

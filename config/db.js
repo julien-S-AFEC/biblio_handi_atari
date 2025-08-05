@@ -10,7 +10,7 @@ const pool = mysql.createPool({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     waitForConnections: true,           // Attendre la libération d'une connexion si pool plein
-    connecetionLimit: 10,               // Nombre max de connexions simultanées 
+    connectionLimit: 10,               // Nombre max de connexions simultanées 
     queueLimit: 0                       // Pas de limite à la file d'attente
 });
 

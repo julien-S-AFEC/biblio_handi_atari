@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3000
 
 const app = express()
 
+app.set("view engine", "twig") 
+
 app.use(express.json());
 
 app.use(expressSession({
