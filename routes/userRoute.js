@@ -1,9 +1,10 @@
-import Router from "express";
-import { login, changeRole } from '../controller/userController.js'
+import express from 'express';
+import { getByEmail, login, changeRole } from '../controller/userController.js';
 
-const userRouter = Router()
+const router = express.Router();
 
-userRouter.post('/login', login)
-userRouter.put('/changeRole', changeRole)
+router.post('/getByEmail', getByEmail);
+router.post('/login', login)
+router.put('/changeRole', changeRole)
 
-export default userRouter
+export default router;

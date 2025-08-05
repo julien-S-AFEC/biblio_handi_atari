@@ -1,18 +1,17 @@
 import mysql from 'mysql2/promise'
 import dotenv from 'dotenv'
 
-if (!process.env.SQL_HOST) {
-    dotenv.config()
-}
+dotenv.config(); // Charge les variables d'environnement depuis .env
 
+// Crée un pool de connexions MSQL réutilisable dans toute l'application
 const pool = mysql.createPool({
-    host: process.env.SQL_HOST,
-    user: process.env.SQL_USER,
-    password: process.env.SQL_PASSWORD,
-    database: process.env.SQL_DATABASE,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-})
+    user: process.env.DB_USER,          // Ex: root
+    host: process.env.DB_HOST,          // Ex: localhost
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    waitForConnections: true,           // Attendre la libération d'une connexion si pool plein
+    connecetionLimit: 10,               // Nombre max de connexions simultanées 
+    queueLimit: 0                       // Pas de limite à la file d'attente
+});
 
-export default pool
+export default pool;
