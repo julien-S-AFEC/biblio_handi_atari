@@ -65,9 +65,7 @@ export const changeRole = async (req, res) => {
     }
 }
 
-// Adrien
-
-exports.logOut = (req, res) => {
+export const logOut = (req, res) => {
     if (!req.session) {
         return res.status(200).json({status: "Accepté"});
     }

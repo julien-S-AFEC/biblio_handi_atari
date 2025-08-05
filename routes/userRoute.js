@@ -1,5 +1,6 @@
 import express from 'express';
-import { getByEmail, login, changeRole } from '../controller/userController.js';
+import { getByEmail, login, changeRole, logOut } from '../controller/userController.js';
+import { requireAuth } from '../middlewares/auth.js';
 
 const router = express.Router();
 
