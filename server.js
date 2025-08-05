@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.EXPRESS_SESSION_KEY,
     resave: false,
     saveUninitialized: false
 }));
