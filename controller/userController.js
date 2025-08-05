@@ -15,7 +15,7 @@ export const login = async (req, res) => {
         }
     }
     catch (err) {
-        res.status(500).json({ message: `Error: ${err.message}` })
+        res.status(500).json({ message: `Erreur: ${err.message}` })
     }
 }
 
@@ -36,6 +36,6 @@ export const changeRole = async (req, res) => {
         }
     }
     catch (err) {
-        res.status(500).json({ message: `Error: ${err.message}` })
+        res.status(500).json({ message: `Erreur: ${err.message}` })
     }
 }

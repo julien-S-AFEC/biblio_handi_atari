@@ -1,15 +1,18 @@
+import dotenv from 'dotenv'
 import express from 'express'
-import bodyParser from 'body-parser'
 import userRouter from './routes/userRoute.js'
 import expressSession from 'express-session'
 
-const PORT = process.env.PORT || 5000
+dotenv.config()
+
+const PORT = process.env.PORT || 3000
 
 const app = express()
 
-app.use(bodyParser.json({ type: 'application/json' }))
+app.use(express.json());
+
 app.use(expressSession({
-    secret: 'ma-cle-secrete',
+    secret:  process.env.EXPRESS_SESSION_KEY,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -22,6 +25,5 @@ app.use('/api/user', userRouter)
 
 
 app.listen(PORT, () => {
-    console.log(`Application listening on port: ${PORT}`)
+    console.log(`Application lancée sur le port: ${PORT}`)
 })
-

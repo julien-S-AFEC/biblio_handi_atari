@@ -11,13 +11,13 @@ export const userLogin = async (email, password) => {
         WHERE email=? 
         `, [email])
         if (!user.length) {
-            return { status: 'failed', statusCode: 404, message: "The user doesn't exists." }
+            return { status: 'failed', statusCode: 404, message: "L'utilisateur n'existe pas." }
         }
         else {
             const match = await bcrypt.compare(password, user[0].password)
 
             if (!match) {
-                return { status: 'failed', statusCode: 401, message: "The password is incorrect" }
+                return { status: 'failed', statusCode: 401, message: "Le mot de passe est incorrect" }
             }
             delete user[0].password // Avoid to send the password to the front.
             return { status: 'success', statusCode: 200, user: user[0] }
@@ -38,7 +38,7 @@ export const changeUserRole = async (id, newRole) => {
         `, [])
 
         if (!rows[0].Type.includes(newRole)) {
-            return  { status: 'failed', statusCode: 400, message: "The role is not allowed." }
+            return  { status: 'failed', statusCode: 400, message: "Le rôle n'est pas autorisé." }
         }
 
         const [user, fields] = await con.execute(`
@@ -51,10 +51,10 @@ export const changeUserRole = async (id, newRole) => {
         `, [newRole, id])
 
         if (!user.affectedRows) {
-            return { status: 'failed', statusCode: 404, message: "The user doesn't exists." }
+            return { status: 'failed', statusCode: 404, message: "L'utilisateur n'existe pas." }
         }
         else {
-            return { status: 'success', statusCode: 200, message: `Role successfully modified to: ${newRole}` }
+            return { status: 'success', statusCode: 200, message: `Le rôle à bien été modifié, nouveau rôle: ${newRole}` }
         }
     }
 
