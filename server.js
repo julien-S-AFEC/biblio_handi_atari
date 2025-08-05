@@ -1,23 +1,29 @@
-// Adrien
+import dotenv from 'dotenv'
+import express from 'express'
+import userRoutes from './routes/userRoute.js'
+import expressSession from 'express-session'
 
-const express = require('express');
-const session = require('express-session');
-const dotenv = require('dotenv');
-const userRoutes = require('./routes/userRoute');
+dotenv.config()
 
-dotenv.config();
+const PORT = process.env.PORT || 3000
 
-const app = express();
+const app = express()
 
 app.use(express.json());
 
-app.use(session({
-    secret: process.env.EXPRESS_SESSION_KEY,
+app.use(expressSession({
+    secret:  process.env.EXPRESS_SESSION_KEY,
     resave: false,
-    saveUninitialized: false
-}));
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        maxAge: 4000 * 60 * 60
+    }
+}))
 
-app.use('/api/user', userRoutes);
+app.use('/api/user', userRoutes)
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`http://localhost:${port}`));
+
+app.listen(PORT, () => {
+    console.log(`Application lancée sur le port: ${PORT}`)
+})
