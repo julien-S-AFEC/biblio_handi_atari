@@ -1,5 +1,4 @@
-import { findUserByEmail } from '../models/userModel.js'
-import { userLogin, changeUserRole } from '../models/userModel.js'
+import { userLogin, changeUserRole, findUserByEmail } from '../models/userModel.js'
 
 export async function getByEmail(req, res) {
     const { email } = req.body;
@@ -64,4 +63,18 @@ export const changeRole = async (req, res) => {
     catch (err) {
         res.status(500).json({ message: `Erreur: ${err.message}` })
     }
+}
+
+export const logOut = (req, res) => {
+    if (!req.session) {
+        return res.status(200).json({status: "Accepté"});
+    }
+    req.session.destroy(err => {
+        if (err) {
+            console.error("Erreur en détruisant la session", err);
+            return res.status(500).json({error: "Connexion impossible"});
+        }
+        res.clearCookie('connect.sid');
+        return res.status(202).json({status: "Accepté"});
+    });
 }
