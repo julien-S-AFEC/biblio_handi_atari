@@ -1,5 +1,4 @@
 import pool from '../config/db.js';
-import pool from "../config/db.js"
 import bcrypt from 'bcrypt'
 
 // Récupérer les utilisateurs par rapport a leurs email
