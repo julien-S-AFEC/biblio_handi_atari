@@ -1,0 +1,36 @@
+{
+  "name": "biblio_handi_atari",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julien-S-AFEC/biblio_handi_atari.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/julien-S-AFEC/biblio_handi_atari/issues"
+  },
+  "homepage": "https://github.com/julien-S-AFEC/biblio_handi_atari#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^1.41.3",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
+    "mysql2": "^3.14.3",
+    "nodemon": "^3.1.10",
+    "twig": "^1.17.1"
+  }
+}
