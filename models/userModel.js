@@ -13,10 +13,6 @@ export const User = {
     return rows;
   },
 
-  verifyUser: async (email) => {
-    await db.execute('UPDATE users SET is_verified = ? WHERE email = ?', [true, email]);
-  },
-
   verifyEmail: async (email) => {
   const sql = 'UPDATE users SET is_verified = true WHERE email = ?';
   const [result] = await db.execute(sql, [email]);

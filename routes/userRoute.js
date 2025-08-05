@@ -5,7 +5,8 @@ import sendEmail from "../utils/mailer.js";
 const router = express.Router();
 
 router.post("/register", register);
-router.get('/verify/:token', sendEmail, verifyEmail);
+router.get('/verify/:token', verifyEmail);
+
 
 
 

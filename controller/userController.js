@@ -59,15 +59,10 @@ export const verifyEmail = async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const email = decoded.email;
 
-    
     await User.verifyEmail(email);
 
-    res.status(200).send("Compte vérifié avec succès !");
+    res.status(200).json({ message: "Compte vérifié avec succès !" });
   } catch (error) {
-    res.status(400).send(" Lien invalide ou expiré.");
+    res.status(400).json({ message: "Lien invalide ou expiré." });
   }
-};
-
-
-
-
+}
