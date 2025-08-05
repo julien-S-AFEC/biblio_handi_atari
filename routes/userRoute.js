@@ -1,6 +1,6 @@
 import express from "express";
 import {register, verifyEmail, getByEmail, login, changeRole, logOut } from "../controller/userController.js";
-import sendEmail from "../utils/mailer.js";
+//import sendEmail from "../utils/mailer.js";
 import { requireAuth } from '../middlewares/auth.js';
 
 
