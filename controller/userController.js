@@ -88,7 +88,7 @@ export async function getByEmail(req, res) {
         }
 
         /* res.session.user = { id: existingUser.id, username: existingUser.username, email: existingUser.user} */
-        return res.status(200).json({id: existingUser.id, name: existingUser.name, email: existingUser.email, role: existingUser.role})
+        return res.status(200).json({id: existingUser.id, name: existingUser.name, email: existingUser.email, role: existingUser.role, createAt: existingUser.createAt})
         
     } catch (error) {
         /* return res.render('getUserEmail', {error: `Erreur interne du serveur`}); */
