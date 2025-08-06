@@ -27,6 +27,8 @@ app.use(expressSession({
 
 app.use('/api/user', userRoutes)
 app.use('/api/document', documentRoutes)
+app.get('/', (req, res) => {res.render('home')})
+app.get('/register', (req, res) => {res.render('register')})
 
 
 app.listen(PORT, () => {

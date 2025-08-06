@@ -15,5 +15,10 @@ export const Document = {
     editDocument: async (id, title, description, format, theme, accessibility, cloudinary_url) => {
         const sql = `UPDATE documents SET title=?, description=?, format=?, theme=?, accessibility=?, cloudinary_url=? WHERE id=?;`;
         await pool.query(sql, [title, description, format, theme, accessibility, cloudinary_url, id]);
+    },
+
+    deleteDocFromDB: async (id) => {
+    const [result] = await pool.execute('DELETE * FROM document WHERE id = ?', [id]);
+    return result;
     }
 }; 
