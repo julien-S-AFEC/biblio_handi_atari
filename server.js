@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import express from 'express'
 import userRoutes from './routes/userRoute.js'
+import documentRoutes from './routes/documentRoute.js'
 import expressSession from 'express-session'
 
 dotenv.config()
@@ -10,7 +11,7 @@ const PORT = process.env.PORT || 3000
 const app = express()
 
 app.set("view engine", "twig") 
-app.set("views", "./views")
+app.set("views", "./views") 
 
 app.use(express.json());
 
@@ -25,6 +26,7 @@ app.use(expressSession({
 }))
 
 app.use('/api/user', userRoutes)
+app.use('/api/document', documentRoutes)
 app.get('/', (req, res) => {res.render('home')})
 app.get('/register', (req, res) => {res.render('register')})
 
