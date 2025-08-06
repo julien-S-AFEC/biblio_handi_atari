@@ -1,26 +1,33 @@
 import dotenv from 'dotenv'
+dotenv.config()
+
 import express from 'express'
 import userRoutes from './routes/userRoute.js'
+import documentRoutes from './routes/documentRoute.js'
 import expressSession from 'express-session'
 import path from 'path'
 import bodyParser from 'body-parser'
+import createMemoryStore from 'memorystore';
+
+const MemoryStore = createMemoryStore(expressSession);
 
 const __dirname = path.resolve();
 
-dotenv.config()
-
 const PORT = process.env.PORT || 3000
 
-const app = express()
+const app = express(express)
 
-app.set("view engine", "twig") 
+app.set("view engine", "twig")
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressSession({
-    secret:  process.env.EXPRESS_SESSION_KEY,
+    secret: process.env.EXPRESS_SESSION_KEY,
     resave: false,
+    store: new MemoryStore({
+        checkPeriod: 86400000
+    }),
     saveUninitialized: false,
     cookie: {
         secure: false,
@@ -40,6 +47,7 @@ app.get('/dashboard', (req, res) => {
 })
 
 app.use('/api/user', userRoutes)
+app.use('/api/document', documentRoutes)
 
 
 app.listen(PORT, () => {
