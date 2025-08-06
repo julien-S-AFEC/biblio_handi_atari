@@ -2,6 +2,9 @@ import dotenv from 'dotenv'
 import express from 'express'
 import userRoutes from './routes/userRoute.js'
 import expressSession from 'express-session'
+import path from 'path'
+
+const __dirname = path.resolve();
 
 dotenv.config()
 
@@ -10,7 +13,7 @@ const PORT = process.env.PORT || 3000
 const app = express()
 
 app.set("view engine", "twig") 
-app.set("views", "./views") 
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.json());
 
