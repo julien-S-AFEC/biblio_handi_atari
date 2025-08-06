@@ -3,11 +3,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Test temporaire (à supprimer une fois que ça marche)
-console.log(process.env.GMAIL_USER);
-console.log(process.env.GMAIL_APP_PASSWORD);
-
-
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {

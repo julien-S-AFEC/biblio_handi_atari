@@ -18,7 +18,21 @@ export const Document = {
     },
 
     deleteDocFromDB: async (id) => {
-    const [result] = await pool.execute('DELETE * FROM document WHERE id = ?', [id]);
-    return result;
+        const [result] = await pool.execute('DELETE FROM documents WHERE id = ?', [id]);
+        return result;
+    },
+    
+    createDocument: async (title, description, format, theme, filePath, public_id) => {
+        try {
+            const result = await pool.execute(`
+            INSERT INTO
+            documents
+            (title, description, format, theme, cloudinary_url, cloudinary_public_id)
+            VALUES (?, ?, ?, ?, ?, ?)
+            `, [title, description, format, theme, filePath, public_id])
+        }
+        catch (error) {
+            throw error
+        }
     }
 }; 
