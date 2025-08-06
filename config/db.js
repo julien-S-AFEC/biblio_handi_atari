@@ -1,8 +1,5 @@
 import mysql from 'mysql2/promise'
-import dotenv from 'dotenv'
 
-dotenv.config(); // Charge les variables d'environnement depuis .env
-console.log('env', process.env.DB_USER)
 // Crée un pool de connexions MSQL réutilisable dans toute l'application
 const pool = mysql.createPool({
     user: process.env.DB_USER,          // Ex: root
