@@ -67,8 +67,6 @@ export const verifyEmail = async (req, res) => {
     }
 }
 
-
-
 export async function getByEmail(req, res) {
     const { email } = req.body;
     if (!email) {
@@ -81,7 +79,7 @@ export async function getByEmail(req, res) {
 
         if (!existingUser) {
             /* return res.render('getUserEmail', {error: `Cette email n'existe pas`, success: null}); */
-            return res.status(404).json({ error: `Cette email n'existe pas` })
+            return res.status(404).json({ error: `Cet email n'existe pas` })
         }
 
         /* res.session.user = { id: existingUser.id, username: existingUser.username, email: existingUser.user} */
@@ -89,7 +87,7 @@ export async function getByEmail(req, res) {
 
     } catch (error) {
         /* return res.render('getUserEmail', {error: `Erreur interne du serveur`}); */
-        return res.status(500).json('Erreur interne du serveur: ', error);
+        return res.status(500).json('Erreur interne du serveur: ', error.message);
     }
 }
 
