@@ -30,7 +30,7 @@ export const register = async (req, res) => {
         });
 
 
-        const link = `https://biblio-handi-atari-jq4j.onrender.com/api/user/verify/${token}`;
+        const link = `https://biblio-handi-atari-jq4j.onrender.com//api/user/verify/${token}`;
 
         await sendEmail({
             to: email,
@@ -41,7 +41,12 @@ export const register = async (req, res) => {
         });
 
 
-        res.render('/dashboard', { user: req.session.user });
+        res
+            .status(201)
+            .json({
+                message:
+                    "Utilisateur créé. Vérifiez vos emails pour activer votre compte.",
+            });
     } catch (err) {
         res.status(500).json({ message: "Erreur serveur.", error: err.message });
     }
