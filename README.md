@@ -62,20 +62,20 @@ En production (Render) :https://biblio-handi-atari-jq4j.onrender.com
 - **Réponse :** Renvoie un `token` (à stocker et utiliser)
 
 {
-  "email": "jean@example.com",
+  "email": "jean@gmail.com",
   "password": "MotDePasse123"
 }
 
 ### Changer le role de l'utilsateur
 -**Méthode post:** `POST`
-- **URL :** `/api/user/cha- **Body requis**ngeRole`
+- **URL :** `/api/user/changeRole`
 - **Champs formulaire requis :**
   - `email` (texte)
   - `newRole` (texte)
 - **Auth :**  Oui (admin)
 - **Body requis**
 {
-  "email": "utilisateur@example.com",
+  "email": "utilisateur@gmail.com",
   "newRole": "admin"
 }
 
@@ -85,7 +85,7 @@ En production (Render) :https://biblio-handi-atari-jq4j.onrender.com
 
 ##  Documents
 
-###  Lister les catégories
+###  Lister les documents
 - **Méthode :** `GET`
 - **URL :** `/api/documents`
 - **Auth :**  Non
@@ -104,13 +104,13 @@ En production (Render) :https://biblio-handi-atari-jq4j.onrender.com
 
 ---
 
-## 📝 Remarques importantes
+## Remarques importantes
 
 - Le **token JWT** est requis pour les routes protégées (comme `POST /documents`).  
   Il doit être envoyé dans le header :  
   `Authorization: Bearer <token>`
 
-- Si tu envoies un fichier (ex : image ou PDF), utilise un formulaire `multipart/form-data`  
+- Si tu envoies un fichier (ex : image ou PDF), utilise un formulaire `form-data`  
   avec le champ nommé `cloudinary_url`.
 
 - Toutes les réponses de l’API sont au format **JSON**.
