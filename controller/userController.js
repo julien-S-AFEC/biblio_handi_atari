@@ -71,7 +71,6 @@ export const verifyEmail = async (req, res) => {
 
 export async function getByEmail(req, res) {
     const { email } = req.body;
-    console.log(email)
     if (!email) {
         /* return res.render('getUserEmail', {error: 'Il faut ajouter un email', success: null}); */
         return res.status(400).json({ error: 'Il faut ajouter un email' })
