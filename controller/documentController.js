@@ -1,5 +1,4 @@
-import { Document, findDocumentById, deleteDocFromDB } from '../models/documentModel.js';
-import cloudinary from '../config/cloudinary.js';
+import { Document } from '../models/documentModel.js';
 
 export async function listDocuments(req, res) {
     try {
@@ -43,7 +42,7 @@ export const deleteDocument = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const document = await findDocumentById(id);
+        const document = await Document.findDocumentById(id);
 
         if (!document) {
             return res.status(400).json({ message: "Document non trouvé"});
@@ -54,7 +53,7 @@ export const deleteDocument = async (req, res) => {
             await cloudinary.uploader.destroy(publicId);
         }
 
-        await deleteDocFromDB(id);
+        await Document.deleteDocFromDB(id);
 
         res.status(200).json({ message: "Suppression du document réussis"})
     } catch (error) {
