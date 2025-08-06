@@ -3,6 +3,7 @@ import express from 'express'
 import userRoutes from './routes/userRoute.js'
 import expressSession from 'express-session'
 import path from 'path'
+import bodyParser from 'body-parser'
 
 const __dirname = path.resolve();
 
@@ -16,7 +17,7 @@ app.set("view engine", "twig")
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.json());
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressSession({
     secret:  process.env.EXPRESS_SESSION_KEY,
     resave: false,
