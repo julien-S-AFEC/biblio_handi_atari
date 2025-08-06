@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000
 const app = express()
 
 app.set("view engine", "twig") 
+app.set("views", "./views") 
 
 app.use(express.json());
 
@@ -25,7 +26,10 @@ app.use(expressSession({
 
 app.use('/api/user', userRoutes)
 
+app.get('/', (req, res) => {
+    res.render('home')})
+
 
 app.listen(PORT, () => {
-    console.log(`Application lancée sur le port: ${PORT}`)
-})
+  console.log(` Serveur démarré sur http://localhost:${PORT}`);
+});
