@@ -93,7 +93,7 @@ ALTER TABLE `documents`
 -- Cloudinary identifie les fichier par leur public_id, pas par l'URL
 --
 ALTER TABLE `documents`
-ADD COLUMN `cloudinary_public_id` VARCHAR(255);
+ADD COLUMN `cloudinary_public_id` VARCHAR(200) NOT NULL;
 
 --
 -- AUTO_INCREMENT pour la table `users`
