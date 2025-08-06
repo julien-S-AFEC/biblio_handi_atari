@@ -30,7 +30,7 @@ export const register = async (req, res) => {
         });
 
 
-        const link = `http://localhost:5000/api/user/verify/${token}`;
+        const link = `https://biblio-handi-atari-jq4j.onrender.com/api/user/verify/${token}`;
 
         await sendEmail({
             to: email,
