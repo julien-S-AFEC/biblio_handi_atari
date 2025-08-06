@@ -18,7 +18,7 @@ export const Document = {
     },
 
     deleteDocFromDB: async (id) => {
-        const [result] = await pool.execute('DELETE * FROM document WHERE id = ?', [id]);
+        const [result] = await pool.execute('DELETE FROM documents WHERE id = ?', [id]);
         return result;
     },
     

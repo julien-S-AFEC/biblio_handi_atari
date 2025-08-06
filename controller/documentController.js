@@ -1,4 +1,6 @@
 import { Document } from '../models/documentModel.js';
+import cloudinary from '../config/cloudinary.js';
+
 
 export async function listDocuments(req, res) {
     try {
@@ -39,15 +41,14 @@ export async function putDocument(req, res) {
 }
 
 export const deleteDocument = async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.body;
 
     try {
         const document = await Document.findDocumentById(id);
 
         if (!document) {
-            return res.status(400).json({ message: "Document non trouvé"});
+            return res.status(400).json({ message: "Document non trouvé."});
         }
-
         const publicId = document.cloudinary_public_id;
         if (publicId) {
             await cloudinary.uploader.destroy(publicId);
@@ -55,10 +56,10 @@ export const deleteDocument = async (req, res) => {
 
         await Document.deleteDocFromDB(id);
 
-        res.status(200).json({ message: "Suppression du document réussis"})
+        res.status(200).json({ message: "Suppression du document réussie."})
     } catch (error) {
         res.status(500).json({
-            message: "Erreur lors de la suppression du document",
+            message: "Erreur lors de la suppression du document.",
             error: error.message
         });
     }
@@ -79,7 +80,7 @@ export const createDocument = async (req, res) => {
         await Document.createDocument(title, description, theme, req.file.mimetype, req.file.path, req.file.filename)
 
         res.status(200).json({
-            message: 'Files uploaded successfully',
+            message: 'Fichier uploadé avec succès.',
             title: title,
             theme: description,
             description: theme,
