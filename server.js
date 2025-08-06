@@ -1,21 +1,42 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import userRoutes from './routes/userRoute.js';
+import dotenv from 'dotenv'
+import express from 'express'
+import userRoutes from './routes/userRoute.js'
+import expressSession from 'express-session'
 import { authLimiter } from './middlewares/rateLimiter.js';
 import helmet from 'helmet';
 import cors from './middlewares/cors.js';
 
+
 dotenv.config();
-const app = express();
+
+const app = express()
+
+
 app.use(helmet());
 app.use(cors);
 
 app.set("view engine", "twig") 
+app.set("views", "./views") 
 
 app.use(express.json());
 
+app.use(expressSession({
+    secret:  process.env.EXPRESS_SESSION_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        maxAge: 4000 * 60 * 60
+    }
+}))
+
+app.use('/api/user', userRoutes)
+
+app.get('/', (req, res) => {
+    res.render('home')})
+
+
 app.use( authLimiter); 
-app.use('/api/user', userRoutes);
 
 
 const PORT = process.env.PORT || 5000  ;
