@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import express from 'express'
 import userRoutes from './routes/userRoute.js'
+import documentRoutes from './routes/documentRoute.js'
 import expressSession from 'express-session'
 
 dotenv.config()
@@ -25,6 +26,7 @@ app.use(expressSession({
 }))
 
 app.use('/api/user', userRoutes)
+app.use('/api/document', documentRoutes)
 
 
 app.listen(PORT, () => {
