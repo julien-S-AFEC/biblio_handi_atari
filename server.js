@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000
 const app = express()
 
 app.set("view engine", "twig") 
+app.set("views", "./views")
 
 app.use(express.json());
 
@@ -24,6 +25,8 @@ app.use(expressSession({
 }))
 
 app.use('/api/user', userRoutes)
+app.get('/', (req, res) => {res.render('home')})
+app.get('/register', (req, res) => {res.render('register')})
 
 
 app.listen(PORT, () => {
