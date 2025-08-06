@@ -41,15 +41,8 @@ export const register = async (req, res) => {
         });
 
 
-        res
-            .status(201)
-            .json({
-                message:
-                    "Utilisateur créé. Vérifiez vos emails pour activer votre compte.",
-            });
-    } catch (err) {app.get('/dashboard', ensureAuthenticated, (req, res) => {
-  res.render('dashboard', { user: req.session.user });
-});
+        res.render('/dashboard', { user: req.session.user });
+    } catch (err) {
         res.status(500).json({ message: "Erreur serveur.", error: err.message });
     }
 };
@@ -88,8 +81,8 @@ export async function getByEmail(req, res) {
         }
 
         /* res.session.user = { id: existingUser.id, username: existingUser.username, email: existingUser.user} */
-        return res.status(200).json({id: existingUser.id, name: existingUser.name, email: existingUser.email, role: existingUser.role, createAt: existingUser.createAt})
-        
+        return res.status(200).json({ id: existingUser.id, name: existingUser.name, email: existingUser.email, role: existingUser.role, createAt: existingUser.createAt })
+
     } catch (error) {
         /* return res.render('getUserEmail', {error: `Erreur interne du serveur`}); */
         return res.status(500).json({ error: 'Erreur interne du serveur' });
