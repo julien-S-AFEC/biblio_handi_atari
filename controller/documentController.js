@@ -22,3 +22,16 @@ export async function getDocumentById(req, res) {
         res.status(500).send('Erreur serveur')
     }
 }
+
+export async function putDocument(req, res) {
+    const { id } = req.params;
+    const { title, description, format, theme, accessibility, cloudinary_url } = req.body;
+    try {
+        await Document.editDocument(id, title, description, format, theme, accessibility, cloudinary_url);
+
+        res.status(201).send('Document modifiée avec succès');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erreur serveur');
+    }
+}

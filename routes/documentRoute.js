@@ -1,9 +1,10 @@
 import express from 'express'
-import { getDocumentById, listDocuments } from '../controller/documentController'
+import { getDocumentById, listDocuments, putDocument } from '../controller/documentController.js'
 
 const router = express.Router();
 
 router.get('/', listDocuments);
-router.get('/:id', getDocumentById);
+router.get('/getById/:id', getDocumentById);
+router.put('/:id', putDocument);
 
 export default router;
