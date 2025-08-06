@@ -2,9 +2,13 @@ import express from 'express';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoute.js';
 import { authLimiter } from './middlewares/rateLimiter.js';
+import helmet from 'helmet';
+import cors from './middlewares/cors.js';
 
 dotenv.config();
 const app = express();
+app.use(helmet());
+app.use(cors);
 
 app.set("view engine", "twig") 
 
