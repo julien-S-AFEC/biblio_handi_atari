@@ -9,16 +9,22 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import createMemoryStore from 'memorystore';
 
-const MemoryStore = createMemoryStore(expressSession);
 
-const __dirname = path.resolve();
+import { authLimiter } from './middlewares/rateLimiter.js';
+import helmet from 'helmet';
+import cors from './middlewares/cors.js';
 
-const PORT = process.env.PORT || 3000
 
-const app = express(express)
+
+
+const app = express()
+
+
+app.use(helmet());
+app.use(cors);
 
 app.set("view engine", "twig")
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -49,7 +55,18 @@ app.get('/dashboard', (req, res) => {
 app.use('/api/user', userRoutes)
 app.use('/api/document', documentRoutes)
 
+app.get('/', (req, res) => {
+    res.render('home')})
 
+
+app.use( authLimiter); 
+
+const MemoryStore = createMemoryStore(expressSession);
+
+
+const PORT = process.env.PORT || 5000  ;
 app.listen(PORT, () => {
-    console.log(`Application lancée sur le port: ${PORT}`)
-})
+  console.log(` Serveur démarré sur http://localhost:${PORT}`);
+});
+
+
