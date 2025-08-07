@@ -8,17 +8,11 @@ import expressSession from 'express-session'
 import path from 'path'
 import bodyParser from 'body-parser'
 import createMemoryStore from 'memorystore';
-
-
-import { authLimiter } from './middlewares/rateLimiter.js';
+import authLimiter from './middlewares/ratelimiter.js'
 import helmet from 'helmet';
 import cors from './middlewares/cors.js';
 
-
-
-
 const app = express()
-
 
 app.use(helmet());
 app.use(cors);
