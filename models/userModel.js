@@ -1,25 +1,25 @@
-import pool from "../config/db.js"; 
+import pool from "../config/db.js";
 import bcrypt from 'bcrypt'
 
 export const User = {
-  create: async (user) => {
-    const sql = 'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)';
-    const [result] = await pool.execute(sql, [user.name, user.email, user.password, user.role || 'user']);
-    return result;
-  },
+    create: async (user) => {
+        const sql = 'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)';
+        const [result] = await pool.execute(sql, [user.name, user.email, user.password, user.role || 'user']);
+        return result;
+    },
 
 
-  findByEmail: async (email) => {
-    const [rows] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
-    return rows;
-  },
+    findByEmail: async (email) => {
+        const [rows] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
+        return rows;
+    },
 
-  verifyEmail: async (email) => {
-  const sql = 'UPDATE users SET is_verified = true WHERE email = ?';
-  const [result] = await pool.execute(sql, [email]);
-  return result;
-}
-  
+    verifyEmail: async (email) => {
+        const sql = 'UPDATE users SET is_verified = true WHERE email = ?';
+        const [result] = await pool.execute(sql, [email]);
+        return result;
+    }
+
 }
 
 
@@ -67,7 +67,7 @@ export const changeUserRole = async (id, newRole) => {
         `, [])
 
         if (!rows[0].Type.includes(newRole)) {
-            return  { status: 'failed', statusCode: 400, message: "Le rôle n'est pas autorisé." }
+            return { status: 'failed', statusCode: 400, message: "Le rôle n'est pas autorisé." }
         }
 
         const [user, fields] = await con.execute(`

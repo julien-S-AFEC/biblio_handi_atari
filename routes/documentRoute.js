@@ -1,10 +1,14 @@
-import express from "express";
-import { listDocuments } from "../controller/documentController.js";
+import express from 'express'
+import { getDocumentById, listDocuments, putDocument, deleteDocument, createDocument } from '../controller/documentController.js'
+import { requireAuth } from '../middlewares/auth.js';
+import { upload } from '../config/cloudinary.js';
 
 const router = express.Router();
 
-// Route pour lister les documents
 router.get('/', listDocuments);
+router.get('/getById/:id', getDocumentById);
+router.put('/:id', putDocument);
+router.delete('/', deleteDocument);
+router.post('/', upload.single('file'), createDocument)
 
 export default router;
-

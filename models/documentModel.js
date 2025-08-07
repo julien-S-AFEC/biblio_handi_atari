@@ -1,22 +1,38 @@
-import db from "../config/db.js";
+import pool from '../config/db.js';
 
 export const Document = {
-    create: async (document) => {
-        const sql ='INSERT INTO documents (title, name ,description, theme, cloudinary_URL, format, accessibility) VALUES (?, ?, ?, ?, ?, ?, ?)';
-        const [result] = await db.execute(sql, [
-            document.title,
-            document.name,
-            document.description,
-            document.theme,
-            document.cloudinary_URL,
-            document.format,
-            document.accessibility
-        ]);
-        return result;
+
+    listDocuments: async () => {
+        const [rows] = await pool.query(`SELECT * FROM documents;`);
+        return rows;
     },
 
-    findAll: async () => {
-        const [rows] = await db.execute('SELECT * FROM documents');
-        return rows;
+    findDocumentById: async (id) => {
+        const [rows] = await pool.query(`SELECT * FROM documents where id = ?`, [id]);
+        return rows[0];
+    },
+
+    editDocument: async (id, title, description, format, theme, accessibility, cloudinary_url) => {
+        const sql = `UPDATE documents SET title=?, description=?, format=?, theme=?, accessibility=?, cloudinary_url=? WHERE id=?;`;
+        await pool.query(sql, [title, description, format, theme, accessibility, cloudinary_url, id]);
+    },
+
+    deleteDocFromDB: async (id) => {
+        const [result] = await pool.execute('DELETE FROM documents WHERE id = ?', [id]);
+        return result;
+    },
+    
+    createDocument: async (title, description, format, theme, filePath, public_id) => {
+        try {
+            const result = await pool.execute(`
+            INSERT INTO
+            documents
+            (title, description, format, theme, cloudinary_url, cloudinary_public_id)
+            VALUES (?, ?, ?, ?, ?, ?)
+            `, [title, description, format, theme, filePath, public_id])
+        }
+        catch (error) {
+            throw error
+        }
     }
-};
+}; 

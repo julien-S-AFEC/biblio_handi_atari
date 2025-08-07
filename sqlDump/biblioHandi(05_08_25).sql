@@ -37,7 +37,7 @@ CREATE TABLE `documents` (
   `cloudinary_url` text NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ci;
 
 -- --------------------------------------------------------
 
@@ -53,7 +53,7 @@ CREATE TABLE `users` (
   `role` enum('user','admin') DEFAULT 'user',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `is_verified` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ci;
 
 --
 -- Déchargement des données de la table `users`
@@ -88,6 +88,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `documents`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- Cloudinary identifie les fichier par leur public_id, pas par l'URL
+--
+ALTER TABLE `documents`
+ADD COLUMN `cloudinary_public_id` VARCHAR(200) NOT NULL;
 
 --
 -- AUTO_INCREMENT pour la table `users`
