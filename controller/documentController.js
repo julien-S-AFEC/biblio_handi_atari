@@ -9,7 +9,7 @@ export async function listDocuments(req, res) {
         res.status(200).json(documents);
         // res.render(`documents`, {documents});
     } catch (error) {
-        console.log(err);
+        console.log(error);
         res.status(500).send(`Erreur de serveur`);
     }
 }
