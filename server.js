@@ -1,4 +1,4 @@
-import './config/confingEnv.js'
+import 'dotenv/config'
 import express from 'express'
 import expressSession from 'express-session'
 import path from 'path'
@@ -7,13 +7,13 @@ import createMemoryStore from 'memorystore';
 import userRoutes from './routes/userRoute.js'
 import documentRoutes from './routes/documentRoute.js'
 
+const app = express(express)
+
 const MemoryStore = createMemoryStore(expressSession);
 
 const __dirname = path.resolve();
 
 const PORT = process.env.PORT || 3000
-
-const app = express(express)
 
 app.set("view engine", "twig")
 app.set('views', path.join(__dirname, 'views'));
