@@ -87,7 +87,7 @@ export async function getByEmail(req, res) {
 
     } catch (error) {
         /* return res.render('getUserEmail', {error: `Erreur interne du serveur`}); */
-        return res.status(500).json('Erreur interne du serveur: ', error.message);
+        return res.status(500).json(error);
     }
 }
 

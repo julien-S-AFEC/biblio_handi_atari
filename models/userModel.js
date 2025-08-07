@@ -26,8 +26,13 @@ export const User = {
 
 // Récupérer les utilisateurs par rapport à leur email
 export async function findUserByEmail(email) {
-    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
-    return rows[0];
+    try {
+        const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+        return rows[0];
+    }
+    catch (error) {
+        throw error
+    }
 }
 
 export const userLogin = async (email, password) => {

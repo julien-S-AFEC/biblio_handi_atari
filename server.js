@@ -1,13 +1,11 @@
-import dotenv from 'dotenv'
-dotenv.config()
-
+import './config/confingEnv.js'
 import express from 'express'
-import userRoutes from './routes/userRoute.js'
-import documentRoutes from './routes/documentRoute.js'
 import expressSession from 'express-session'
 import path from 'path'
 import bodyParser from 'body-parser'
 import createMemoryStore from 'memorystore';
+import userRoutes from './routes/userRoute.js'
+import documentRoutes from './routes/documentRoute.js'
 
 const MemoryStore = createMemoryStore(expressSession);
 
