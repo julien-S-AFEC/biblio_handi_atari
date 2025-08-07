@@ -7,10 +7,10 @@ import { requireAuth, verifyToken } from '../middlewares/auth.js';
 const router = express.Router();
 
 router.post("/register", register);
-router.get('/verify/:token', verifyToken, verifyEmail);
-router.post('/getByEmail', verifyToken, getByEmail);
+router.get('/verify/:token', verifyEmail);
+router.post('/getByEmail', getByEmail);
 router.post('/login', login);
-router.put('/changeRole', verifyToken, changeRole);
-router.get('/logOut', requireAuth, verifyToken, logOut);
+router.put('/changeRole', changeRole);
+router.get('/logOut', requireAuth, logOut);
 
 export default router;
