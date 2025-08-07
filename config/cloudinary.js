@@ -12,7 +12,8 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary.v2,
     params: {
         folder: 'uploads',
-        resource_type: 'auto'
+        resource_type: 'auto',
+        allowed_formats: ['jpg', 'png', 'jpeg', 'gif','webp','avif', 'pdf', 'epub', 'avi', 'mp3', 'mp4'],
     }
 });
 
