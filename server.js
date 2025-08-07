@@ -13,6 +13,7 @@ import helmet from 'helmet';
 import cors from './middlewares/cors.js';
 
 const app = express()
+const __dirname = path.resolve();
 
 app.use(helmet());
 app.use(cors);
@@ -50,17 +51,18 @@ app.use('/api/user', userRoutes)
 app.use('/api/document', documentRoutes)
 
 app.get('/', (req, res) => {
-    res.render('home')})
+    res.render('home')
+})
 
 
-app.use( authLimiter); 
+app.use(authLimiter);
 
 const MemoryStore = createMemoryStore(expressSession);
 
 
-const PORT = process.env.PORT || 5000  ;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(` Serveur démarré sur http://localhost:${PORT}`);
+    console.log(` Serveur démarré sur http://localhost:${PORT}`);
 });
 
 
