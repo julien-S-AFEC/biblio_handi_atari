@@ -1,4 +1,5 @@
 import { Document } from '../models/documentModel.js';
+import cloudinary from '../config/cloudinary.js';
 
 export async function listDocuments(req, res) {
     try {
