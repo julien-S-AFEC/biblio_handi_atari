@@ -15,12 +15,11 @@ import cors from './middlewares/cors.js';
 const app = express()
 const __dirname = path.resolve();
 
+const MemoryStore = createMemoryStore(expressSession);
+
 app.use(helmet());
 app.use(cors);
-
-app.set("view engine", "twig")
-app.set('views', path.join(__dirname, 'views'))
-
+app.use(authLimiter);
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressSession({
@@ -35,6 +34,11 @@ app.use(expressSession({
         maxAge: 4000 * 60 * 60
     }
 }))
+app.use('/api/user', userRoutes)
+app.use('/api/document', documentRoutes)
+
+app.set("view engine", "twig")
+app.set('views', path.join(__dirname, 'views'))
 
 app.get('/', (req, res) => {
     res.render('home')
@@ -47,22 +51,11 @@ app.get('/dashboard', (req, res) => {
     res.render('dashboard')
 })
 
-app.use('/api/user', userRoutes)
-app.use('/api/document', documentRoutes)
-
 app.get('/', (req, res) => {
     res.render('home')
 })
-
-
-app.use(authLimiter);
-
-const MemoryStore = createMemoryStore(expressSession);
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(` Serveur démarré sur http://localhost:${PORT}`);
 });
-
-
