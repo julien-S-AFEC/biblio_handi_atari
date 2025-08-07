@@ -5,10 +5,10 @@ import { upload } from '../config/cloudinary.js';
 
 const router = express.Router();
 
-router.get('/', listDocuments);
-router.get('/getById/:id', getDocumentById);
-router.put('/:id', putDocument);
-router.delete('/', deleteDocument);
-router.post('/', upload.single('file'), createDocument)
+router.get('/', verifyToken, listDocuments);
+router.get('/getById/:id', verifyToken, getDocumentById);
+router.put('/:id', verifyToken, putDocument);
+router.delete('/', verifyToken, deleteDocument);
+router.post('/', verifyToken, upload.single('file'), createDocument)
 
 export default router;
