@@ -6,9 +6,9 @@ import { User, userLogin, changeUserRole, findUserByEmail } from '../models/user
 
 export const register = async (req, res) => {
 
-    const { name, email, password, confirmPassword, role } = req.body;
+    const { name, email, password, confirmPassword } = req.body;
 
-    const userRole = role || "user";
+    const userRole = "user";
 
     if (password !== confirmPassword) {
         return res
@@ -23,11 +23,18 @@ export const register = async (req, res) => {
         }
 
         const hashed = await bcrypt.hash(password, 10);
-        await User.create({ name, email, password: hashed, role: userRole });
+        const result = await User.create({ name, email, password: hashed, role: userRole });
 
         const token = jwt.sign({ email }, process.env.JWT_SECRET, {
             expiresIn: "1d",
         });
+
+        req.session.user = {
+            name: name,
+            email: email,
+            role: userRole,
+            jwt: `Bearer ${token}`
+        }
 
 
         const link = `https://biblio-handi-atari-jq4j.onrender.com/api/user/verify/${token}`;
@@ -67,8 +74,6 @@ export const verifyEmail = async (req, res) => {
     }
 }
 
-
-
 export async function getByEmail(req, res) {
     const { email } = req.body;
 
@@ -104,8 +109,17 @@ export const login = async (req, res) => {
             res.status(result.statusCode).json(result.message)
         }
         else {
-            req.session.user = result.user
-            res.status(result.statusCode).json(result.user)
+            const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+                expiresIn: "1d",
+            });
+
+            req.session.user = {
+                name: result.user.name,
+                email: result.user.email,
+                role: result.user.userRole,
+                jwt: `Bearer ${token}`
+            }
+            res.status(result.statusCode).json({message: "successfully logged", user: result.user})
         }
     }
     catch (err) {
