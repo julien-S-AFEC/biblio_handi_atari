@@ -9,7 +9,6 @@ export async function listDocuments(req, res) {
         res.status(200).json(documents);
         // res.render(`documents`, {documents});
     } catch (error) {
-        console.log(err);
         res.status(500).send(`Erreur de serveur`);
     }
 }
@@ -76,14 +75,13 @@ export const createDocument = async (req, res) => {
         if (!req.file || req.file.length === 0) {
             return res.status(400).json({ message: 'Pas de fichiers a uploader.' });
         }
-
-        await Document.createDocument(title, description, theme, req.file.mimetype, req.file.path, req.file.filename)
+        await Document.createDocument(title, description, req.file.mimetype, theme, req.file.path, req.file.filename)
 
         res.status(200).json({
             message: 'Fichier uploadé avec succès.',
             title: title,
-            theme: description,
-            description: theme,
+            theme: theme,
+            description: description,
             path: req.file.path,
             fileName: req.file.filename
         });
