@@ -29,9 +29,9 @@ export async function getDocumentById(req, res) {
 
 export async function putDocument(req, res) {
     const { id } = req.params;
-    const { title, description, format, theme, accessibility, cloudinary_url } = req.body;
+    const { title, description, format, theme, accessibility, cloudinary_url, cloudinary_public_id } = req.body;
     try {
-        await Document.editDocument(id, title, description, format, theme, accessibility, cloudinary_url);
+        await Document.editDocument(id, title, description, format, theme, accessibility, cloudinary_url, cloudinary_public_id);
 
         res.status(201).send('Document modifiée avec succès');
     } catch (err) {
