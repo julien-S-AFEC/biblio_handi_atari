@@ -82,8 +82,8 @@ export const createDocument = async (req, res) => {
         res.status(200).json({
             message: 'Fichier uploadé avec succès.',
             title: title,
-            theme: description,
-            description: theme,
+            theme: theme,
+            description: description,
             path: req.file.path,
             fileName: req.file.filename
         });

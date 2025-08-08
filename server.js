@@ -34,6 +34,7 @@ app.use(expressSession({
 }))
 app.use('/api/user', userRoutes)
 app.use('/api/document', documentRoutes)
+app.use('/twigScripts', express.static(path.join(__dirname, 'twigScripts')));
 
 app.set("view engine", "twig")
 app.set('views', path.join(__dirname, 'views'))
@@ -41,16 +42,14 @@ app.set('views', path.join(__dirname, 'views'))
 app.get('/', (req, res) => {
     res.render('home')
 })
-
 app.get('/register', (req, res) => {
     res.render('register')
 })
+app.get('/login', (req, res) => {
+    res.render('login')
+})
 app.get('/dashboard', (req, res) => {
     res.render('dashboard')
-})
-
-app.get('/', (req, res) => {
-    res.render('home')
 })
 
 const PORT = process.env.PORT || 5000;
