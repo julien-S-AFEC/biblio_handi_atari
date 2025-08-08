@@ -3,7 +3,7 @@ import rateLimit from 'express-rate-limit';
 
 const authLimiter = rateLimit({
   windowMs: 2 * 60 * 1000, // 2 minutes
-  limit: 5000, // Limite à 5 tentatives de login par IP
+  limit: 100, 
   standardHeaders: 'draft-8',
   legacyHeaders: false,
   message: {
