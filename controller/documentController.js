@@ -80,10 +80,10 @@ export const createDocument = async (req, res) => {
         await Document.createDocument(title, description, theme, req.file.mimetype, req.file.path, req.file.filename)
 
         res.status(200).json({
-            message: 'Fichier uploadé avec succès.',
+            message: 'Fichier uploaded avec succès.',
             title: title,
-            theme: description,
-            description: theme,
+            description: description,
+            theme: theme,
             path: req.file.path,
             fileName: req.file.filename
         });
