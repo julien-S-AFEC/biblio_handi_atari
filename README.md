@@ -67,10 +67,10 @@ En production (Render) :https://biblio-handi-atari-jq4j.onrender.com
 }
 
 ### Changer le role de l'utilsateur
--**Méthode post:** `POST`
+-**Méthode post:** `PUT`
 - **URL :** `/api/user/changeRole`
 - **Champs formulaire requis :**
-  - `email` (texte)
+  - `id` (number)
   - `newRole` (texte)
 - **Auth :**  Oui (admin)
 - **Body requis**
