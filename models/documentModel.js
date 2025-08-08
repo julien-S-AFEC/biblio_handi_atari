@@ -12,9 +12,9 @@ export const Document = {
         return rows[0];
     },
 
-    editDocument: async (id, title, description, format, theme, accessibility, cloudinary_url) => {
-        const sql = `UPDATE documents SET title=?, description=?, format=?, theme=?, accessibility=?, cloudinary_url=? WHERE id=?;`;
-        await pool.query(sql, [title, description, format, theme, accessibility, cloudinary_url, id]);
+    editDocument: async (id, title, description, format, theme, accessibility, cloudinary_url, cloudinary_public_id) => {
+        const sql = `UPDATE documents SET title=?, description=?, format=?, theme=?, accessibility=?, cloudinary_url=?, cloudinary_public_id=? WHERE id=?;`;
+        await pool.query(sql, [title, description, format, theme, accessibility, cloudinary_url, cloudinary_public_id, id]);
     },
 
     deleteDocFromDB: async (id) => {

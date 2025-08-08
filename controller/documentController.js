@@ -28,9 +28,9 @@ export async function getDocumentById(req, res) {
 
 export async function putDocument(req, res) {
     const { id } = req.params;
-    const { title, description, format, theme, accessibility, cloudinary_url } = req.body;
+    const { title, description, format, theme, accessibility, cloudinary_url, cloudinary_public_id } = req.body;
     try {
-        await Document.editDocument(id, title, description, format, theme, accessibility, cloudinary_url);
+        await Document.editDocument(id, title, description, format, theme, accessibility, cloudinary_url, cloudinary_public_id);
 
         res.status(201).send('Document modifiée avec succès');
     } catch (err) {
@@ -78,7 +78,7 @@ export const createDocument = async (req, res) => {
         await Document.createDocument(title, description, req.file.mimetype, theme, req.file.path, req.file.filename)
 
         res.status(200).json({
-            message: 'Fichier uploadé avec succès.',
+            message: 'Fichier uploaded avec succès.',
             title: title,
             theme: theme,
             description: description,
